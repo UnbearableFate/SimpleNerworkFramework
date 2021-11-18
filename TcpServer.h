@@ -14,10 +14,10 @@ private:
 	TcpServer(TcpServer&) = delete;
 	TcpServer& operator=(TcpServer&) = delete;
 public:
-	TcpServer(int port, std::function<void(void)> func);
+	TcpServer(int port,TcpConnection::MessageHandleFunc func);
 	~TcpServer();
 	void start();
-	void createNewConn(int connfd, sockaddr_in cliAddr);
+	void createNewConn(int connfd, sockaddr_in cliAddr,TcpConnection::MessageHandleFunc);
 	
 };
 

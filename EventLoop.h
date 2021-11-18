@@ -9,7 +9,8 @@ class EventLoop
 private:
 	std::vector<Channel*> channels;
 	std::shared_ptr<EpollManager> epollMgr;
-
+	EventLoop(EventLoop&) = delete;
+	EventLoop& operator=(const EventLoop&) = delete;
 public:
 	void loop();
 	EventLoop();

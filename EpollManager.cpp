@@ -16,15 +16,28 @@ void EpollManager::addEvent(Channel *channel) {
 	int fd = channel->getFd();
 	epoll_ctl(eventFd, EPOLL_CTL_ADD, channel->getFd(),&e);
 	this->registeredChannelMap[fd] = channel;
+	//channel->ownerMgr = this;
+	channel->update = std::bind(&EpollManager::modifyEvent, this, channel);
 }
-/*
-void EpollManager::modifyEvent(Channel& channel) {
+
+void EpollManager::modifyEvent(Channel* channel) {
+	if (channel->getEvent() == 0) {
+		deleteEvent(channel);
+	}
 	epoll_event e;
-	e.data.ptr = &channel;
-	e.events = channel.getEvent();
-	epoll_ctl(eventFd, EPOLL_CTL_ADD, channel.getFd(), &e);
+	memset(&e, 0, sizeof(e));
+	e.data.ptr = channel;
+	e.events = channel->getEvent();
+	epoll_ctl(eventFd, EPOLL_CTL_MOD, channel->getFd(), &e);
 }
-*/
+
+void EpollManager::deleteEvent(Channel* channel) {
+	epoll_event e;
+	memset(&e, 0, sizeof(e));
+	e.data.ptr = channel;
+	e.events = channel->getEvent();
+	epoll_ctl(eventFd, EPOLL_CTL_DEL, channel->getFd(), nullptr);
+}
 
  std::vector<Channel*> EpollManager::pollWait() {
 	int num = epoll_wait(this->eventFd, &*this->eventsVector.begin(), static_cast<int>( eventsVector.size()), -1);

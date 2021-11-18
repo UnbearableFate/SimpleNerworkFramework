@@ -16,6 +16,7 @@ public:
 	Acceptor(int);
 	void acceptWhenReady();
 	Channel* getChannelPtr() { return &acceptChan; }
-	void setCreateNewConnCallback(std::function<void(int, sockaddr_in)> func) { createNewConnCallback = std::move(func); }
+	void setCreateNewConnCallback(std::function<void(int, sockaddr_in)> func) { 
+		createNewConnCallback = std::move(func); }
 };
 

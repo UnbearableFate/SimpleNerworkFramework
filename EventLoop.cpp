@@ -10,7 +10,6 @@ void EventLoop::loop() {
 		auto activeChannels = epollMgr->pollWait();
 		for(auto ch : activeChannels) {
 			ch->handleIO();
-			std::cout << "gogogo" << std::endl;
 		}
 	}
 }

@@ -18,7 +18,7 @@ public:
 
 	void addEvent(Channel*);
 	void modifyEvent(Channel*);
+	void deleteEvent(Channel*);
 	std::vector<Channel*> pollWait();
-	void removeEvent(int key);
 };
 
