@@ -76,11 +76,23 @@
   <ImportGroup Label="PropertySheets" />
   <PropertyGroup Label="UserMacros" />
   <ItemGroup>
+    <ClCompile Include="Acceptor.cpp" />
+    <ClCompile Include="Buffer.cpp" />
+    <ClCompile Include="Channel.cpp" />
+    <ClCompile Include="EpollManager.cpp" />
     <ClCompile Include="EventLoop.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="TcpConnection.cpp" />
+    <ClCompile Include="TcpServer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Acceptor.h" />
+    <ClInclude Include="Buffer.h" />
+    <ClInclude Include="Channel.h" />
+    <ClInclude Include="EpollManager.h" />
     <ClInclude Include="EventLoop.h" />
+    <ClInclude Include="TcpConnection.h" />
+    <ClInclude Include="TcpServer.h" />
   </ItemGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Link>
