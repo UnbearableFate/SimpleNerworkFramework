@@ -15,8 +15,6 @@ void EpollManager::addEvent(Channel *channel) {
 	e.events = channel->getEvent();
 	int fd = channel->getFd();
 	epoll_ctl(eventFd, EPOLL_CTL_ADD, channel->getFd(),&e);
-	this->registeredChannelMap[fd] = channel;
-	//channel->ownerMgr = this;
 	channel->update = std::bind(&EpollManager::modifyEvent, this, channel);
 }
 

@@ -1,5 +1,5 @@
 #include "Channel.h"
-
+#include <unistd.h>
 void Channel::handleIO() {
     if (rEvent & (EPOLLERR ))
     {
@@ -13,4 +13,9 @@ void Channel::handleIO() {
     {
         if (writeCallback) writeCallback();
     }
+}
+
+Channel::~Channel() {
+    this->ownerLoop = nullptr;
+    close(this->fd);
 }

@@ -11,7 +11,6 @@ class EpollManager
 private:
 	int eventFd;
 	std::vector<epoll_event> eventsVector;
-	std::map<int, Channel*> registeredChannelMap;
 public:
 	EpollManager();
 	~EpollManager();
