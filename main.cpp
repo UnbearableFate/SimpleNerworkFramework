@@ -6,7 +6,7 @@
 #include<iostream>
 #include"Buffer.h"
 using namespace std;
-void hh(const std::shared_ptr<TcpConnection>& conn, Buffer data) {
+void hh(TcpConnection* conn, Buffer data) {
 	vector<char> res;
 	for (auto c : data) {
 		if (c == '\0') {

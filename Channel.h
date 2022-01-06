@@ -16,7 +16,7 @@ private:
 	std::function<void(void)> closeCallback;
 	
 public:
-	static const int READ_EVE = EPOLLIN | EPOLLPRI;
+	static const int READ_EVE = EPOLLIN | EPOLLPRI ;
 	static const int WRITE_EVE = EPOLLOUT;
 	std::function<void(void)> update;
 	Channel() : fd(-1),readCallback(nullptr),writeCallback(nullptr),errorCallback(nullptr) {}

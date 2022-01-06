@@ -81,6 +81,7 @@
     <ClCompile Include="Channel.cpp" />
     <ClCompile Include="EpollManager.cpp" />
     <ClCompile Include="EventLoop.cpp" />
+    <ClCompile Include="EventLoopThread.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="TcpConnection.cpp" />
     <ClCompile Include="TcpServer.cpp" />
@@ -92,6 +93,7 @@
     <ClInclude Include="Channel.h" />
     <ClInclude Include="EpollManager.h" />
     <ClInclude Include="EventLoop.h" />
+    <ClInclude Include="EventLoopThread.h" />
     <ClInclude Include="TcpConnection.h" />
     <ClInclude Include="TcpServer.h" />
     <ClInclude Include="WriteBuffer.h" />

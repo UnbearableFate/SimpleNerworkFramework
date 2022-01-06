@@ -12,7 +12,7 @@ void EpollManager::addEvent(Channel *channel) {
 	epoll_event e;
 	memset(&e, 0, sizeof(e));
 	e.data.ptr = channel;
-	e.events = channel->getEvent();
+	e.events = channel->getEvent() | EPOLLEXCLUSIVE;
 	int fd = channel->getFd();
 	epoll_ctl(eventFd, EPOLL_CTL_ADD, channel->getFd(),&e);
 	channel->update = std::bind(&EpollManager::modifyEvent, this, channel);
@@ -38,7 +38,18 @@ void EpollManager::deleteEvent(Channel* channel) {
 }
 
  std::vector<Channel*> EpollManager::pollWait() {
-	int num = epoll_wait(this->eventFd, &*this->eventsVector.begin(), static_cast<int>( eventsVector.size()), -1);
+	int num;
+	while (true)
+	{
+		num = epoll_wait(this->eventFd, &*this->eventsVector.begin(), static_cast<int>( eventsVector.size()), -1);
+		if (num < 0) {
+			printf("%s\n", strerror(errno));
+		}
+		else
+		{
+			break;
+		}
+	}
 	std::vector<Channel*> activeChennel;
 	for (int i = 0; i != num; ++i) {
 		auto ch = static_cast<Channel*> (eventsVector[i].data.ptr);

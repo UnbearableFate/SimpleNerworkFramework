@@ -9,7 +9,7 @@ class TcpServer
 private:
 	Acceptor acceptor;
 	EventLoop entranceLoop;
-	std::map<int, EventLoop*> connEventloopMap;
+	std::vector<EventLoop> eventLoopPool;
 	std::map<int, std::shared_ptr<TcpConnection>> tcpConnMap;
 	TcpServer(TcpServer&) = delete;
 	TcpServer& operator=(TcpServer&) = delete;
@@ -19,5 +19,6 @@ public:
 	void start();
 	void createNewConn(int connfd, sockaddr_in cliAddr,TcpConnection::MessageHandleFunc);
 	void closeConn(int);
+	EventLoop* getNextLoop();
 };
 

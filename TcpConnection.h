@@ -26,11 +26,11 @@ public:
 	TcpConnection(int cfd, sockaddr_in cAddr);
 	~TcpConnection();
 	void send(std::vector<char>&);
-	using TcpConnPtr = const std::shared_ptr<TcpConnection>&;
+	using TcpConnPtr = TcpConnection*;
 	using MessageHandleFunc = std::function<void(TcpConnPtr, Buffer)>;
 	Channel* getChanPtr() { return &tcpConnChan; }
 	void setMessageHandleCallback(MessageHandleFunc func) {
-		messageHandleCallback = std::bind(func,shared_from_this(),std::placeholders::_1);
+		messageHandleCallback = std::bind(func,this,std::placeholders::_1);
 	};
 	void setCloseCallback(const std::function<void(void)>& cb) { closeCallback = cb; };
 	void CloseConn();

@@ -10,6 +10,7 @@
     <ClCompile Include="TcpServer.cpp" />
     <ClCompile Include="Buffer.cpp" />
     <ClCompile Include="WriteBuffer.cpp" />
+    <ClCompile Include="EventLoopThread.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EventLoop.h" />
@@ -20,6 +21,7 @@
     <ClInclude Include="TcpServer.h" />
     <ClInclude Include="Buffer.h" />
     <ClInclude Include="WriteBuffer.h" />
+    <ClInclude Include="EventLoopThread.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="net">

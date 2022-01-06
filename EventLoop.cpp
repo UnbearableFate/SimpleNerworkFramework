@@ -16,6 +16,13 @@ EventLoop::EventLoop():epollMgr(std::make_shared<EpollManager>()),notifiChannel(
 void EventLoop::loop() {
 	while (true)
 	{
+		{
+			std::unique_lock<std::mutex> lock(mut);
+			while (!isLooping)
+			{
+				cv.wait(lock);
+			}
+		}
 		auto activeChannels = epollMgr->pollWait();
 		for(auto ch : activeChannels) {
 			ch->handleIO();
@@ -42,4 +49,14 @@ void EventLoop::addPendingFunc(std::function<void(void)> func) {
 
 void EventLoop::removeChannel(Channel* chan) {
 	this->epollMgr->deleteEvent(chan);
+}
+
+void EventLoop::loopInThread() {
+	t = std::thread(std::bind(&EventLoop::loop,this));
+	t.detach();
+}
+
+void EventLoop::startLoop() {
+	isLooping = true;
+	cv.notify_all();
 }
